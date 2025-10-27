@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
-
 app = Flask(__name__)
-
+#Choose From the destinations below for the test
 DESTINATIONS = [
     "SIT Front Gate",
     "Mechanical Department",
