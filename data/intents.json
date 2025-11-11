@@ -3,24 +3,27 @@
     {
       "tag": "greeting",
       "patterns": ["hi", "hello", "hey", "good morning", "good evening"],
+      "entity":["greet"],
       "responses": ["Hello! How can I help you today?", "Hi there — what can I do for you?"]
     },
 
     {
       "tag": "college_foundation",
       "patterns": ["when was sit founded", "when was siddaganga institute of technology founded", "what year was sit established"],
+      "entity":["college founded"],
       "responses": ["Siddaganga Institute of Technology was established in 1963."]
     },
 
     {
       "tag": "principal_info",
       "patterns": ["who is the principal", "who is the principal of sit", "principal name", "who leads the college"],
+      "entity":["principal"],
       "responses": ["The principal of Siddaganga Institute of Technology is Prof. X Y."]
 
     },
 
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_ec",
       "patterns": [
         "guide me to ece block",
         "Navigate to ece block"
@@ -29,7 +32,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_cs",
       "patterns": [
         "guide me to cse block",
         "Navigate to cse block"
@@ -38,7 +41,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_fg",
       "patterns": [
         "guide me to SIT Front Gate",
         "Navigate to SIT Front Gate"
@@ -47,7 +50,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_mb",
       "patterns": [
         "guide me to MBA Block",
         "Navigate to MBA Block"
@@ -56,7 +59,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_st",
       "patterns": [
         "guide me to SIT Shiv Temple",
         "Navigate to SIT Shiv Temple"
@@ -65,7 +68,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_bc",
       "patterns": [
         "guide me to SIT Basketball Court",
         "Navigate to SIT Basketball Court"
@@ -74,7 +77,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_vc",
       "patterns": [
         "guide me to Volleyball Court",
         "Navigate to Volleyball Court"
@@ -83,7 +86,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_ad",
       "patterns": [
         "guide me to Administration Block",
         "Navigate to Administration Block"
@@ -92,7 +95,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_br",
       "patterns": [
         "guide me to Board Room",
         "Navigate to Board Room"
@@ -101,7 +104,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_sl",
       "patterns": [
         "guide me to SIT Library",
         "Navigate to SIT Library"
@@ -110,7 +113,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_sa",
       "patterns": [
         "guide me to SIT Annexe",
         "Navigate to SIT Annexe"
@@ -119,7 +122,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_stc",
       "patterns": [
         "guide me to SIT Tennis Court",
         "Navigate to SIT Tennis Court"
@@ -128,7 +131,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_pc",
       "patterns": [
         "guide me to Physics And Chemistry Department",
         "Navigate to Physics And Chemistry Department"
@@ -137,7 +140,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_cd",
       "patterns": [
         "guide me to Civil Department",
         "Navigate to Civil Department"
@@ -146,7 +149,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_lbs",
       "patterns": [
         "guide me to LBS Block",
         "Navigate to LBS Block"
@@ -155,7 +158,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_bvb",
       "patterns": [
         "guide me to BVB Block",
         "Navigate to BVB Block"
@@ -164,7 +167,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_alp",
       "patterns": [
         "guide me to ALP Block",
         "Navigate to ALP Block"
@@ -173,7 +176,7 @@
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
-      "tag": "navigation_request",
+      "tag": "navigation_request_scant",
       "patterns": [
         "guide me to SIT Canteen",
         "Navigate to SIT Canteen"
@@ -186,12 +189,14 @@
     {
       "tag": "thanks",
       "patterns": ["thanks", "thank you", "thx"],
+      "entity":["thankyou"],
       "responses": ["You're welcome!", "Happy to help!"]
     },
 
     {
       "tag": "fallback",
       "patterns": [],
+      "entity":["empty"],
       "responses": ["Sorry, I didn't understand that. Could you rephrase or ask something else?"]
     }
   ]
