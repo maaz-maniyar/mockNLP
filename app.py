@@ -1,44 +1,37 @@
 from flask import Flask, request, jsonify
+import pickle
+import json
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
 app = Flask(__name__)
-#Choose From the destinations below for the test
-DESTINATIONS = [
-    "SIT Front Gate",
-    "Mechanical Department",
-    "SIT Coffee Shop",
-    "Library",
-    "CSE Department",
-    "Main Building"
-]
+
+with open("model/intent_model.pkl", "rb") as f:
+    model, vectorizer = pickle.load(f)
+
+with open("data/intents.json") as f:
+    intents = json.load(f)["intents"]
+
+def get_response(user_input):
+    X = vectorizer.transform([user_input])
+    intent_tag = model.predict(X)[0]
+
+    for intent in intents:
+        if intent["tag"] == intent_tag:
+            return jsonify({
+                "intent": intent_tag,
+                "response": intent["responses"][0],
+                "entity": intent["entity"]
+            })
+    return jsonify({"intent": "unknown", "response": "Sorry, I didn’t understand that."})
+
 
 @app.route("/parse", methods=["POST"])
-def parse():
-    data = request.get_json(force=True)
-    msg = data.get("message", "").lower()
+def chat():
+    data = request.get_json()
+    user_input = data.get("message", "")
+    return get_response(user_input)
 
-    for dest in DESTINATIONS:
-        if dest.lower() in msg:
-            return jsonify({
-                "intent": "navigation",
-                "entity": dest,
-                "answer": f"Navigating to {dest}..."
-            })
-
-    if any(x in msg for x in ["hi", "hello", "hey"]):
-        return jsonify({
-            "intent": "greeting",
-            "answer": "Hello! Where would you like to go today?"
-        })
-
-    if "who" in msg or "what" in msg:
-        return jsonify({
-            "intent": "info",
-            "answer": "I'm NavSIT, your AR navigation assistant for SIT campus."
-        })
-
-    return jsonify({
-        "intent": "unknown",
-        "answer": "I'm not sure I understood that. Could you repeat?"
-    })
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(debug=True)
