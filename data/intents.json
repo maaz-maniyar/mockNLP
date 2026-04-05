@@ -82,7 +82,7 @@
         "guide me to Volleyball Court",
         "Navigate to Volleyball Court"
       ],
-      "entity":["Volleyball Court"],
+      "entity":["SIT Volleyball Court"],
       "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {

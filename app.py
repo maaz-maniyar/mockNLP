@@ -1,8 +1,6 @@
 from flask import Flask, request, jsonify
 import pickle
 import json
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
 
 app = Flask(__name__)
 
@@ -18,10 +16,14 @@ def get_response(user_input):
 
     for intent in intents:
         if intent["tag"] == intent_tag:
+            intent_type = "navigation_request" if intent_tag.startswith("navigation_request") else intent_tag
+            entity = intent.get("entity", [])
             return jsonify({
                 "intent": intent_tag,
+                "intent_type": intent_type,
                 "response": intent["responses"][0],
-                "entity": intent["entity"]
+                "entity": entity,
+                "destination": entity[0] if entity else None
             })
     return jsonify({"intent": "unknown", "response": "Sorry, I didn’t understand that."})
 
