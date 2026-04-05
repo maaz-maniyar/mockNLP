@@ -1,16 +1,33 @@
 from flask import Flask, request, jsonify
 import json
+import logging
+import os
 import pickle
 import re
 
 
 app = Flask(__name__)
 
-with open("model/intent_model.pkl", "rb") as f:
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
+)
+logger = logging.getLogger("mocknlp")
+
+MODEL_PATH = "model/intent_model.pkl"
+INTENTS_PATH = "data/intents.json"
+
+logger.info("Starting MockNLP. cwd=%s, model_path=%s, intents_path=%s", os.getcwd(), MODEL_PATH, INTENTS_PATH)
+
+with open(MODEL_PATH, "rb") as f:
     model, vectorizer = pickle.load(f)
 
-with open("data/intents.json", encoding="utf-8") as f:
+logger.info("Model loaded successfully from %s", MODEL_PATH)
+
+with open(INTENTS_PATH, encoding="utf-8") as f:
     intents = json.load(f)["intents"]
+
+logger.info("Loaded %s intents from %s", len(intents), INTENTS_PATH)
 
 
 INTENT_BY_TAG = {intent["tag"]: intent for intent in intents}
@@ -135,35 +152,44 @@ def build_response(intent):
 
 
 def get_response(user_input):
+    logger.info("Processing message. raw_input=%r", user_input)
     destination = detect_destination(user_input)
     if destination and is_navigation_request(user_input):
         navigation_intent = NAVIGATION_BY_DESTINATION.get(destination)
         if navigation_intent:
+            logger.info("Matched navigation via alias/cue. destination=%s, intent=%s", destination, navigation_intent["tag"])
             return build_response(navigation_intent)
 
     X = vectorizer.transform([user_input])
     if X.nnz == 0:
         fallback = INTENT_BY_TAG.get("fallback")
         if fallback:
+            logger.info("No vectorized tokens found. Returning fallback response.")
             return build_response(fallback)
+        logger.warning("No vectorized tokens found and fallback intent missing.")
         return jsonify({"intent": "unknown", "response": "Sorry, I didn't understand that."})
 
     intent_tag = str(model.predict(X)[0])
+    logger.info("Model predicted intent=%s, destination=%s", intent_tag, destination)
 
     if destination and intent_tag.startswith("navigation_request"):
         navigation_intent = NAVIGATION_BY_DESTINATION.get(destination)
         if navigation_intent:
+            logger.info("Resolved predicted navigation to destination=%s using intent=%s", destination, navigation_intent["tag"])
             return build_response(navigation_intent)
 
     intent = INTENT_BY_TAG.get(intent_tag)
     if intent:
+        logger.info("Returning response for intent=%s", intent_tag)
         return build_response(intent)
 
+    logger.warning("Predicted intent not found in intents list. intent=%s", intent_tag)
     return jsonify({"intent": "unknown", "response": "Sorry, I didn't understand that."})
 
 
 @app.get("/health")
 def health():
+    logger.info("Health check requested.")
     return jsonify({"status": "ok"})
 
 
@@ -171,7 +197,14 @@ def health():
 def chat():
     data = request.get_json(silent=True) or {}
     user_input = data.get("message", "")
+    logger.info("Received /parse request. payload_keys=%s", list(data.keys()))
     return get_response(user_input)
+
+
+@app.errorhandler(Exception)
+def handle_exception(error):
+    logger.exception("Unhandled exception while processing request: %s", error)
+    return jsonify({"error": "internal_server_error"}), 500
 
 
 if __name__ == "__main__":
