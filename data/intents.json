@@ -3,200 +3,277 @@
     {
       "tag": "greeting",
       "patterns": ["hi", "hello", "hey", "good morning", "good evening"],
-      "entity":["greet"],
-      "responses": ["Hello! How can I help you today?", "Hi there — what can I do for you?"]
+      "entity": ["greet"],
+      "responses": ["Hello! How can I help you today?", "Hi there - what can I do for you?"]
     },
-
     {
       "tag": "college_foundation",
-      "patterns": ["when was sit founded", "when was siddaganga institute of technology founded", "what year was sit established"],
-      "entity":["college founded"],
+      "patterns": [
+        "when was sit founded",
+        "when was siddaganga institute of technology founded",
+        "what year was sit established",
+        "when was the college started",
+        "what is the foundation year of sit"
+      ],
+      "entity": ["college founded"],
       "responses": ["Siddaganga Institute of Technology was established in 1963."]
     },
-
     {
       "tag": "principal_info",
-      "patterns": ["who is the principal", "who is the principal of sit", "principal name", "who leads the college"],
-      "entity":["principal"],
+      "patterns": [
+        "who is the principal",
+        "who is the principal of sit",
+        "principal name",
+        "who leads the college",
+        "who is heading the college"
+      ],
+      "entity": ["principal"],
       "responses": ["The principal of Siddaganga Institute of Technology is Prof. X Y."]
-
     },
-
     {
       "tag": "navigation_request_ec",
       "patterns": [
         "guide me to ece block",
-        "Navigate to ece block"
+        "navigate to ece block",
+        "take me to ece block",
+        "show me the way to ece block",
+        "how do i get to ece block",
+        "where is ece block"
       ],
-      "entity":["ECE Block"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["ECE Block"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_cs",
       "patterns": [
         "guide me to cse block",
-        "Navigate to cse block"
+        "navigate to cse block",
+        "take me to cse",
+        "show me the way to cse department",
+        "how do i get to cse",
+        "where is cse department"
       ],
-      "entity":["CSE Department"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["CSE Department"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_fg",
       "patterns": [
-        "guide me to SIT Front Gate",
-        "Navigate to SIT Front Gate"
+        "guide me to sit front gate",
+        "navigate to sit front gate",
+        "take me to the front gate",
+        "show me the way to the gate",
+        "how do i get to the front gate",
+        "where is the front gate"
       ],
-      "entity":["SIT Front Gate"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["SIT Front Gate"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_mb",
       "patterns": [
-        "guide me to MBA Block",
-        "Navigate to MBA Block"
+        "guide me to mba block",
+        "navigate to mba block",
+        "take me to mba",
+        "show me the way to mba block",
+        "how do i get to mba block",
+        "where is mba block"
       ],
-      "entity":["MBA Block"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["MBA Block"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_st",
       "patterns": [
-        "guide me to SIT Shiv Temple",
-        "Navigate to SIT Shiv Temple"
+        "guide me to sit shiv temple",
+        "navigate to sit shiv temple",
+        "take me to the temple",
+        "show me the way to shiv temple",
+        "how do i get to the temple",
+        "where is shiv temple"
       ],
-      "entity":["SIT Shiv Temple"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["SIT Shiv Temple"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_bc",
       "patterns": [
-        "guide me to SIT Basketball Court",
-        "Navigate to SIT Basketball Court"
+        "guide me to sit basketball court",
+        "navigate to sit basketball court",
+        "take me to the basketball court",
+        "show me the way to basketball court",
+        "how do i get to basketball court",
+        "where is the basketball court"
       ],
-      "entity":["SIT Basketball Court"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["SIT Basketball Court"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_vc",
       "patterns": [
-        "guide me to Volleyball Court",
-        "Navigate to Volleyball Court"
+        "guide me to volleyball court",
+        "navigate to volleyball court",
+        "take me to the volleyball court",
+        "show me the way to volleyball court",
+        "how do i get to volleyball court",
+        "where is the volleyball court"
       ],
-      "entity":["SIT Volleyball Court"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["SIT Volleyball Court"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_ad",
       "patterns": [
-        "guide me to Administration Block",
-        "Navigate to Administration Block"
+        "guide me to administration block",
+        "navigate to administration block",
+        "take me to administration",
+        "show me the way to admin block",
+        "how do i get to administration block",
+        "where is administration block"
       ],
-      "entity":["Administration Block"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["Administration Block"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_br",
       "patterns": [
-        "guide me to Board Room",
-        "Navigate to Board Room"
+        "guide me to board room",
+        "navigate to board room",
+        "take me to the board room",
+        "show me the way to board room",
+        "how do i get to board room",
+        "where is the board room"
       ],
-      "entity":["Board Room"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["Board Room"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_sl",
       "patterns": [
-        "guide me to SIT Library",
-        "Navigate to SIT Library"
+        "guide me to sit library",
+        "navigate to sit library",
+        "take me to the library",
+        "show me the way to library",
+        "how do i get to the library",
+        "where is the library"
       ],
-      "entity":["SIT Library"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["SIT Library"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_sa",
       "patterns": [
-        "guide me to SIT Annexe",
-        "Navigate to SIT Annexe"
+        "guide me to sit annexe",
+        "navigate to sit annexe",
+        "take me to annexe",
+        "show me the way to annexe",
+        "how do i get to annexe",
+        "where is annexe"
       ],
-      "entity":["SIT Annexe"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["SIT Annexe"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_stc",
       "patterns": [
-        "guide me to SIT Tennis Court",
-        "Navigate to SIT Tennis Court"
+        "guide me to sit tennis court",
+        "navigate to sit tennis court",
+        "take me to tennis court",
+        "show me the way to tennis court",
+        "how do i get to tennis court",
+        "where is tennis court"
       ],
-      "entity":["SIT Tennis Court"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["SIT Tennis Court"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_pc",
       "patterns": [
-        "guide me to Physics And Chemistry Department",
-        "Navigate to Physics And Chemistry Department"
+        "guide me to physics and chemistry department",
+        "navigate to physics and chemistry department",
+        "take me to physics and chemistry",
+        "show me the way to physics and chemistry department",
+        "how do i get to physics and chemistry department",
+        "where is physics and chemistry department"
       ],
-      "entity":["Physics And Chemistry Department"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["Physics And Chemistry Department"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_cd",
       "patterns": [
-        "guide me to Civil Department",
-        "Navigate to Civil Department"
+        "guide me to civil department",
+        "navigate to civil department",
+        "take me to civil",
+        "show me the way to civil department",
+        "how do i get to civil department",
+        "where is civil department"
       ],
-      "entity":["Civil Department"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["Civil Department"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_lbs",
       "patterns": [
-        "guide me to LBS Block",
-        "Navigate to LBS Block"
+        "guide me to lbs block",
+        "navigate to lbs block",
+        "take me to lbs",
+        "show me the way to lbs block",
+        "how do i get to lbs block",
+        "where is lbs block"
       ],
-      "entity":["LBS Block"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["LBS Block"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_bvb",
       "patterns": [
-        "guide me to BVB Block",
-        "Navigate to BVB Block"
+        "guide me to bvb block",
+        "navigate to bvb block",
+        "take me to bvb",
+        "show me the way to bvb block",
+        "how do i get to bvb block",
+        "where is bvb block"
       ],
-      "entity":["BVB Block"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["BVB Block"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_alp",
       "patterns": [
-        "guide me to ALP Block",
-        "Navigate to ALP Block"
+        "guide me to alp block",
+        "navigate to alp block",
+        "take me to alp",
+        "show me the way to alp block",
+        "how do i get to alp block",
+        "where is alp block"
       ],
-      "entity":["ALP Block"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["ALP Block"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
     {
       "tag": "navigation_request_scant",
       "patterns": [
-        "guide me to SIT Canteen",
-        "Navigate to SIT Canteen"
+        "guide me to sit canteen",
+        "navigate to sit canteen",
+        "take me to the canteen",
+        "show me the way to canteen",
+        "how do i get to the canteen",
+        "where is the canteen"
       ],
-      "entity":["SIT Canteen"],
-      "responses": ["Sure — I can help you navigate. Tap Navigate to start the AR guidance."]
+      "entity": ["SIT Canteen"],
+      "responses": ["Sure - I can help you navigate. Tap Navigate to start the AR guidance."]
     },
-
-
     {
       "tag": "thanks",
       "patterns": ["thanks", "thank you", "thx"],
-      "entity":["thankyou"],
+      "entity": ["thankyou"],
       "responses": ["You're welcome!", "Happy to help!"]
     },
-
     {
       "tag": "fallback",
       "patterns": [],
-      "entity":["empty"],
+      "entity": ["empty"],
       "responses": ["Sorry, I didn't understand that. Could you rephrase or ask something else?"]
     }
   ]
