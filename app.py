@@ -28,9 +28,14 @@ def get_response(user_input):
     return jsonify({"intent": "unknown", "response": "Sorry, I didn’t understand that."})
 
 
+@app.get("/health")
+def health():
+    return jsonify({"status": "ok"})
+
+
 @app.route("/parse", methods=["POST"])
 def chat():
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
     user_input = data.get("message", "")
     return get_response(user_input)
 
