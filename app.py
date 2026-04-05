@@ -4,6 +4,7 @@ import logging
 import os
 import pickle
 import re
+from threading import Lock
 
 
 app = Flask(__name__)
@@ -14,23 +15,20 @@ logging.basicConfig(
 )
 logger = logging.getLogger("mocknlp")
 
-MODEL_PATH = "model/intent_model.pkl"
-INTENTS_PATH = "data/intents.json"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "model", "intent_model.pkl")
+INTENTS_PATH = os.path.join(BASE_DIR, "data", "intents.json")
+
+model = None
+vectorizer = None
+intents = []
+INTENT_BY_TAG = {}
+NAVIGATION_BY_DESTINATION = {}
+MODEL_LOAD_ERROR = None
+resource_lock = Lock()
 
 logger.info("Starting MockNLP. cwd=%s, model_path=%s, intents_path=%s", os.getcwd(), MODEL_PATH, INTENTS_PATH)
 
-with open(MODEL_PATH, "rb") as f:
-    model, vectorizer = pickle.load(f)
-
-logger.info("Model loaded successfully from %s", MODEL_PATH)
-
-with open(INTENTS_PATH, encoding="utf-8") as f:
-    intents = json.load(f)["intents"]
-
-logger.info("Loaded %s intents from %s", len(intents), INTENTS_PATH)
-
-
-INTENT_BY_TAG = {intent["tag"]: intent for intent in intents}
 NAVIGATION_CUES = (
     "navigate",
     "guide me",
@@ -105,7 +103,43 @@ def build_navigation_lookup():
     return lookup
 
 
-NAVIGATION_BY_DESTINATION = build_navigation_lookup()
+def load_resources():
+    global model, vectorizer, intents, INTENT_BY_TAG, NAVIGATION_BY_DESTINATION, MODEL_LOAD_ERROR
+
+    if model is not None and vectorizer is not None and intents:
+        return True
+
+    with resource_lock:
+        if model is not None and vectorizer is not None and intents:
+            return True
+
+        try:
+            logger.info("Loading NLP resources from disk.")
+            with open(MODEL_PATH, "rb") as f:
+                model, vectorizer = pickle.load(f)
+
+            logger.info("Model loaded successfully from %s", MODEL_PATH)
+
+            with open(INTENTS_PATH, encoding="utf-8") as f:
+                intents = json.load(f)["intents"]
+
+            INTENT_BY_TAG = {intent["tag"]: intent for intent in intents}
+            NAVIGATION_BY_DESTINATION = build_navigation_lookup()
+            MODEL_LOAD_ERROR = None
+            logger.info("Loaded %s intents from %s", len(intents), INTENTS_PATH)
+            return True
+        except Exception as error:
+            MODEL_LOAD_ERROR = str(error)
+            logger.exception("Failed to load NLP resources: %s", error)
+            model = None
+            vectorizer = None
+            intents = []
+            INTENT_BY_TAG = {}
+            NAVIGATION_BY_DESTINATION = {}
+            return False
+
+
+load_resources()
 
 
 def detect_destination(user_input):
@@ -152,6 +186,18 @@ def build_response(intent):
 
 
 def get_response(user_input):
+    if not load_resources():
+        logger.error("Cannot process message because NLP resources are unavailable. error=%s", MODEL_LOAD_ERROR)
+        return jsonify(
+            {
+                "intent": "service_unavailable",
+                "intent_type": "service_unavailable",
+                "response": "The NLP model is still loading. Please try again in a moment.",
+                "entity": [],
+                "destination": None,
+            }
+        ), 503
+
     logger.info("Processing message. raw_input=%r", user_input)
     destination = detect_destination(user_input)
     if destination and is_navigation_request(user_input):
@@ -189,8 +235,11 @@ def get_response(user_input):
 
 @app.get("/health")
 def health():
-    logger.info("Health check requested.")
-    return jsonify({"status": "ok"})
+    healthy = load_resources()
+    logger.info("Health check requested. healthy=%s", healthy)
+    if healthy:
+        return jsonify({"status": "ok"})
+    return jsonify({"status": "error", "details": MODEL_LOAD_ERROR}), 503
 
 
 @app.route("/parse", methods=["POST"])
